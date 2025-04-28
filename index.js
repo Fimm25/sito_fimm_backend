@@ -12,8 +12,8 @@ import meterReaderRouter from './routes/meterReaderRouter.js'; // Assicurati che
 
 dotenv.config();
 
-const { PORT, MONGODB_URI } = process.env;
-
+const { MONGODB_URI } = process.env;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 // Middleware
