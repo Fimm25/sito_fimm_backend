@@ -8,6 +8,8 @@ import PublicRouter from './routes/publicoffers.js'; // Gestisce le offerte pubb
 import PrivateRouter from './routes/privateOffers.js'; // Gestisce le offerte private
 import User from './models/user.js';  // Importa il modello User
 import meterReaderRouter from './routes/meterReaderRouter.js'; // Assicurati che il percorso sia corretto
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 
 dotenv.config();
@@ -59,6 +61,17 @@ app.post('/login', async (req, res) => {
         const code = error.statusCode || 500;
         res.status(code).send('Errore');
     }
+});
+
+// Serve i file statici di Vite
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// Catch-all route
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 // Connect to MongoDB and start the server
