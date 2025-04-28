@@ -63,16 +63,19 @@ app.post('/login', async (req, res) => {
     }
 });
 
+
 // Serve i file statici di Vite
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Serve i file statici
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Catch-all route
+// Catch-all route per gestire tutte le altre rotte (quelle gestite dal frontend)
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
+
 
 // Connect to MongoDB and start the server
 mongoose.connect(MONGODB_URI)
