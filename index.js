@@ -78,8 +78,6 @@ app.get('*', (req, res) => {
 mongoose.connect(MONGODB_URI)
     .then(() => {
         console.log('Connesso con successo a MongoDB');
-        app.listen(PORT, () => {
-            console.log(`Server in ascolto sulla porta ${PORT}`);
-        });
     })
     .catch(err => console.error('Errore nella connessione a MongoDB:', err));
+export default app;
