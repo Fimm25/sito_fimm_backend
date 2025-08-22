@@ -73,8 +73,9 @@ router.post('/', upload.single('image'), async (req, res) => {
 // Nuovo endpoint per ottenere un letturista in base alla matricola
 router.get('/:matricola', async (req, res) => {
     try {
-        const { matricola } = req.params;
-        const letturista = await MeterReader.findOne({ matricola: matricola.toUpperCase(), isActive: true }); // Confronta la matricola in maiuscolo e controlla isActive
+        let { matricola } = req.params;
+        matricola = matricola.trim().toUpperCase(); // Rimuovi spazi bianchi e converti in maiuscolo
+        const letturista = await MeterReader.findOne({ matricola, isActive: true }); // Confronta la matricola in maiuscolo e controlla isActive
 
         if (!letturista) {
             return res.status(404).send('Letturista non trovato.'); // Cambiato messaggio per chiarezza
